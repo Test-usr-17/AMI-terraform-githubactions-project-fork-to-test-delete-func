@@ -39,7 +39,7 @@ resource "aws_instance" "frontend" {
   ami                    = data.aws_ami.application_ami.id
   instance_type          = var.ec2_type
   #key_name               = aws_key_pair.ssh_keypair.key_name
-  key_name               = "sid-key-mumbai" 
+  key_name               = "test-keys-for-git" 
   monitoring             = false
   #user_data              = file("setup.sh")
   vpc_security_group_ids = [aws_security_group.frontend.id]
