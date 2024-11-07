@@ -3,29 +3,29 @@ name: "KOOL pack site  Infra Destruction"
 on:
   workflow_dispatch:
 
+    inputs:
+
+      environment:
+        description: "Select Your evironment"
+        required: false
+        type: string
+        default: "production"
+
+      confirm_destroy:
+        description: "Confirm infrastructure destruction"
+        required: true
+        type: choice
+        options:
+          - "yes"
+          - "no"
 jobs:
 
   delete:
     runs-on: ubuntu-latest
-    env:
-      AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
-      AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
-      AWS_DEFAULT_REGION: ${{ secrets.AWS_REGION }}
 
     steps:
-      - name: "Repository Checkout"
-        uses: actions/checkout@v4
-
-      - name: "Terraform Setup"
-        uses: hashicorp/setup-terraform@v2
-        with:
-          terraform_version: 1.9.8
-
-      - name: "Terraform Init"
-        run: terraform init
-        working-directory: ./terraform/  
-
-      - name: "Terraform Destroy"
-        run: terraform destroy -auto-approve
-        working-directory: ./terraform/
+      - name: "os details"
+        run: |
+          cat /etc/os-release
+          whoami
 
