@@ -2,11 +2,9 @@ name: "KOOL pack site  Infra Destruction"
 
 on:
   workflow_dispatch:
-
     inputs:
-
       environment:
-        description: "Select Your evironment"
+        description: "Select Your environment"
         required: false
         type: string
         default: "production"
@@ -18,14 +16,17 @@ on:
         options:
           - "yes"
           - "no"
-jobs:
 
+jobs:
   delete:
     runs-on: ubuntu-latest
 
     steps:
-      - name: "os details"
+
+      - name: "Print Input Variables"
         run: |
-          cat /etc/os-release
-          whoami
+          echo "Event: ${{github.event}}"
+          echo "Inputs: ${{github.inputs}}"
+          echo "Environment: ${{ github.event.inputs.environment }}"
+          echo "Confirm Destroy: ${{ github.event.inputs.confirm_destroy }}"
 
